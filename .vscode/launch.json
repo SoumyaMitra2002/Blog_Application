@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-BlogApplication<blog_application>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.soumya.blog_application.BlogApplication",
+            "projectName": "blog_application",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}
