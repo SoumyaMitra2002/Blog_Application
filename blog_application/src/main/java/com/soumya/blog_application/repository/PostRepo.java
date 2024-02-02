@@ -16,5 +16,7 @@ public interface PostRepo extends JpaRepository<Post,Integer>{
     List<Post> findByUser(User user);
     List<Post> findByCategory(Category category);
     List<Post> findByUserAndCategory(User u,Category c);
+
+    List<Post> findByTitleContainingIgnoreCase(String keyword);
     
 }

@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import com.soumya.blog_application.exception.ResourseNotFoundException;
 import com.soumya.blog_application.entity.Category;
@@ -112,8 +113,15 @@ public class PostImpl implements PostService{
     }
 
     @Override
-    public PostResponse getAllPost(Integer pageNumber,Integer pageSize) {
-        Pageable p=PageRequest.of(pageNumber, pageSize);
+    public PostResponse getAllPost(Integer pageNumber,Integer pageSize,String sortBy,String sortDir) {
+        Sort sort=(sortDir.equalsIgnoreCase("asc")?Sort.by(sortBy).ascending():Sort.by(sortBy).descending());
+        // if(sortDir.equalsIgnoreCase("asc")){
+        //     sort=Sort.by(sortBy).ascending();
+        // }
+        // else{
+        //     sort=Sort.by(sortBy).descending();
+        // }
+        Pageable p=PageRequest.of(pageNumber, pageSize,sort);
         Page<Post> page=this.postRepo.findAll(p);
         List<Post> list=page.getContent();
         PostResponse postResponse=new PostResponse();
@@ -127,6 +135,14 @@ public class PostImpl implements PostService{
 
         return postResponse;
         
+    }
+
+    @Override
+    public List<PostDTO> getPostByTitle(String keyword) {
+         List<Post> list=this.postRepo.findByTitleContainingIgnoreCase(keyword);
+         List<PostDTO> list2=list.stream()
+         .map(post-> this.modelMapper.map(post, PostDTO.class)).collect(Collectors.toList());
+         return list2;
     }
     
 }

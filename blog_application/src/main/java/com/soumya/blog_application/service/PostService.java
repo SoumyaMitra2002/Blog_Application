@@ -2,7 +2,6 @@ package com.soumya.blog_application.service;
 
 import java.util.List;
 
-
 import com.soumya.blog_application.payloads.PostDTO;
 import com.soumya.blog_application.payloads.PostResponse;
 
@@ -14,6 +13,7 @@ public interface PostService {
     public List<PostDTO> getAllByUser(Integer userId);
     public List<PostDTO> getAllByCategory(Integer categoryId);
     public List<PostDTO> getAllPostOfUserWithCategories(Integer userId,Integer categoryId);
-    public PostResponse getAllPost(Integer pageNumber,Integer pageSize);
+    public PostResponse getAllPost(Integer pageNumber,Integer pageSize,String sortBy,String sortDir);
+    public List<PostDTO> getPostByTitle(String keyword);
 
 }
